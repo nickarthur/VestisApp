@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'page1.dart';
+import 'page2.dart';
 import 'navigation_bar_controller.dart';
 
 void main() => runApp(SampleApp());
@@ -10,7 +12,7 @@ class SampleApp extends StatelessWidget {
       title: 'Bottom Navigation Bar Demo',
       home: BottomNavigationBarController(),
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: Colors.white,
       ),
     );

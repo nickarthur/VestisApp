@@ -21,7 +21,6 @@ class _ARPageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(title: const Text('Vestis')),
       body: ARKitSceneView(onARKitViewCreated: onARKitViewCreated),
     );
   }

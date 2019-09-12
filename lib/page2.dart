@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:async';
 import 'globals.dart' as globals;
 
@@ -25,6 +26,50 @@ class _GetLocationPageState extends State {
     mapController = controller;
   }
 
+
+  void _showDialog() {
+    var alertStyle = AlertStyle(
+      //overlayColor: Color.fromRGBO(255, 255, 255, 1.0),
+      animationType: AnimationType.grow,
+      isCloseButton: true,
+      isOverlayTapDismiss: true,
+      animationDuration: Duration(milliseconds: 400),
+    );
+
+
+    Alert(
+        context: context,
+        style: alertStyle,
+        title: "ADD",
+        content: Column(
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Title',
+              ),
+            ),
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Description',
+              ),
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pop(context);
+              print("do firebase add code here!");
+            },
+            child: Text(
+              "Add",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ]).show();
+
+  }
 
   bool panToLocation = true;
 
@@ -73,14 +118,7 @@ class _GetLocationPageState extends State {
                   backgroundColor: Colors.white,
                   child: Icon(Icons.add),
                   onPressed: () {
-                    print("add code here!");
-                    mapController.animateCamera(
-                      CameraUpdate.newCameraPosition(
-                        CameraPosition(
-                            target: LatLng(userLocation["latitude"].toDouble(), userLocation["longitude"].toDouble()), zoom: 18.0
-                        ),
-                      ),
-                    );
+                    _showDialog();
                   },
                 ),
               ),

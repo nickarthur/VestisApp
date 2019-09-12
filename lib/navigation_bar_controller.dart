@@ -9,13 +9,12 @@ class BottomNavigationBarController extends StatefulWidget {
 }
 
 class _BottomNavigationBarControllerState extends State<BottomNavigationBarController> {
+  static final page1 = new FirstPage();
+  static final page2 = new SecondPage();
+
   final List<Widget> pages = [
-    SecondPage(
-      key: PageStorageKey('Page2'),
-    ),
-    FirstPage(
-      key: PageStorageKey('Page1'),
-    ),
+    page2,
+    page1,
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -25,12 +24,15 @@ class _BottomNavigationBarControllerState extends State<BottomNavigationBarContr
   Widget _bottomNavigationBar(int selectedIndex) =>
       SizedBox(
         height: 110,
-      child: BottomNavigationBar(
+        child: BottomNavigationBar(
         onTap: (int index) => setState(() => _selectedIndex = index),
         currentIndex: selectedIndex,
-        backgroundColor: Colors.grey[850],
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
+//        backgroundColor: Colors.grey[850],
+//        selectedItemColor: Colors.white,
+//        unselectedItemColor: Colors.white70,
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.grey[700],
+        unselectedItemColor: Colors.grey[600],
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.location_on), title: Text('Map')),
