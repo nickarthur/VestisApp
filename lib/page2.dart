@@ -106,11 +106,6 @@ class _GetLocationPageState extends State {
             ),
           ],
         )
-//        floatingActionButton: FloatingActionButton(
-//            foregroundColor: Colors.black54,
-//            backgroundColor: Colors.white,
-//            child: Icon(Icons.my_location),
-//
     );
   }
 
