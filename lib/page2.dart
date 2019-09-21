@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:async';
 import 'globals.dart' as globals;
 
@@ -15,6 +14,7 @@ class SecondPage extends StatefulWidget {
 
 class _GetLocationPageState extends State {
   var location = new Location();
+  double rating = 0;
 
   Map<String, double> userLocation;
 
@@ -28,47 +28,62 @@ class _GetLocationPageState extends State {
 
 
   void _showDialog() {
-    var alertStyle = AlertStyle(
-      //overlayColor: Color.fromRGBO(255, 255, 255, 1.0),
-      animationType: AnimationType.grow,
-      isCloseButton: true,
-      isOverlayTapDismiss: true,
-      animationDuration: Duration(milliseconds: 400),
-    );
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          title: Text("Add Location"),
+          content:
 
+          new Column(
+            children: <Widget>[
+                new TextField(
+                  autofocus: false,
+                  decoration: new InputDecoration(
+                      labelText: 'Name', hintText: 'Name'),
+                  onChanged: (value) {
+                    print(value + " changed!");
+                    //teamName = value;
+                  },
+                ),
 
-    Alert(
-        context: context,
-        style: alertStyle,
-        title: "ADD",
-        content: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Title',
-              ),
+                new TextField(
+                  autofocus: false,
+                  decoration: new InputDecoration(
+                      labelText: 'Description', hintText: 'Description'),
+                  onChanged: (value) {
+                    print(value + " changed!");
+                    //teamName = value;
+                  },
+                ),
+
+                new  Center(
+
+                ),
+              //),
+            ],
+          ),
+
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Description',
-              ),
+            FlatButton(
+              child: Text('Add'),
+              onPressed: () {
+                print("add to database here!");
+                Navigator.of(context).pop();
+              },
             ),
           ],
-        ),
-        buttons: [
-          DialogButton(
-            onPressed: () {
-              Navigator.pop(context);
-              print("do firebase add code here!");
-            },
-            child: Text(
-              "Add",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          )
-        ]).show();
-
+        );
+      },
+    );
   }
 
   bool panToLocation = true;

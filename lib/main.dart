@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'page1.dart';
-import 'page2.dart';
 import 'navigation_bar_controller.dart';
 
 void main() => runApp(SampleApp());
