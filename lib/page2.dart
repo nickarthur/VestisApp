@@ -32,16 +32,18 @@ class _GetLocationPageState extends State {
 
   bool panToLocation = true;
 
+  double destLat = 37.136706;
+
+  double destLong = -121.659072;
+
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{}; // CLASS MEMBER, MAP OF MARKS
 
   @override
   void initState() {
     super.initState();
-    FlutterCompass.events.listen((double direction) {
-      setState(() {
-        _direction = direction;
-      });
-    });
+
+    _add();   // add a test marker
+    print("added marker!");
   }
 
   @override
@@ -69,9 +71,6 @@ class _GetLocationPageState extends State {
 
         double myLat = double.parse(globals.latitude);
         double myLong = double.parse(globals.longitude);
-
-        double destLat = 37.136706;
-        double destLong = -121.659072;
 
         //print("myPos " + myLat.toString() + ", " + myLong.toString());
 
@@ -108,7 +107,8 @@ class _GetLocationPageState extends State {
 
         //print(bearingDegrees);      // angle in terms of my location to the northern hemisphere, then rotating clockwise to the destination point
 
-        print(_direction);
+        //print(_direction);      // direction user is facing!
+        globals.userDirection = _direction.toString();
       });
     });
 
@@ -125,9 +125,10 @@ class _GetLocationPageState extends State {
             ),
             myLocationEnabled : true,
             myLocationButtonEnabled: false,
-
+            markers: Set<Marker>.of(markers.values)
           ),
         ),
+
         floatingActionButton: Stack(
           children: <Widget>[
             Padding(padding: EdgeInsets.only(bottom:100),
@@ -185,28 +186,30 @@ class _GetLocationPageState extends State {
     return currentLocation;
   }
 
-//  void _add() {
-//    var markerIdVal = MyWayToGenerateId();
-//    final MarkerId markerId = MarkerId(markerIdVal);
-//
-//    // creating a new MARKER
-//    final Marker marker = Marker(
-//      markerId: markerId,
-//      position: LatLng(
-//        currentLocation.latitude + sin(_markerIdCounter * pi / 6.0) / 20.0,
-//        currentLocation.longitude + cos(_markerIdCounter * pi / 6.0) / 20.0,
-//      ),
-//      infoWindow: InfoWindow(title: markerIdVal, snippet: '*'),
-//      onTap: () {
-//        _onMarkerTapped(markerId);
-//      },
-//    );
-//
-//    setState(() {
-//      // adding a new marker to map
-//      markers[markerId] = marker;
-//    });
-//  }
+  void _add() {
+    var markerIdVal = "someuniqueid";
+    final MarkerId markerId = MarkerId(markerIdVal);
+
+    // creating a new MARKER
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: LatLng(
+          37.136706,// + sin(_markerIdCounter * pi / 6.0) / 20.0,
+          -121.659072// + cos(_markerIdCounter * pi / 6.0) / 20.0,
+      ),
+      infoWindow: InfoWindow(title: 'Title', snippet: 'Description'),
+      //icon: BitmapDescriptor,
+      onTap: () {
+        //_onMarkerTapped(markerId);
+        print("marker tapped!");
+      },
+    );
+
+    setState(() {
+      // adding a new marker to map
+      markers[markerId] = marker;
+    });
+  }
 
   void _showDialog() {
     // flutter defined function
