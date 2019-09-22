@@ -8,6 +8,7 @@ class SampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bottom Navigation Bar Demo',
+      debugShowCheckedModeBanner: false,
       home: BottomNavigationBarController(),
       theme: ThemeData(
         brightness: Brightness.light,
