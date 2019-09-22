@@ -49,9 +49,7 @@ class _GetLocationPageState extends State {
   @override
   Widget build(BuildContext context) {
     FlutterCompass.events.listen((double direction) {     // update user direction
-      setState(() {
-        _direction = direction;
-      });
+      _direction = direction;
     });
 
     _getLocation().then((value) {                         // update user position
@@ -104,6 +102,8 @@ class _GetLocationPageState extends State {
         double bearingRadians = atan2(x, y);
 
         double bearingDegrees = bearingRadians*180.0/pi;
+
+        globals.directionToDest = bearingDegrees.toString();
 
         //print(bearingDegrees);      // angle in terms of my location to the northern hemisphere, then rotating clockwise to the destination point
 
